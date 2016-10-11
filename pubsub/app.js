@@ -6,9 +6,10 @@ var badges = require('./controllers/badges');
 
 app.use(express.json());
 
-app.post('/', badges.save, badegs.send, function(req, res) {
+app.post('/', badges.save, badges.send, function(req, res) {
   res.send('\ndone\n\n');
 });
 
+app.get('/badges', badges.get);
 
 app.listen(8000);

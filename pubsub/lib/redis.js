@@ -7,4 +7,4 @@ client.on('error', function(err) {
   throw err;  //throws??? the error
 })
 
-modules.exports = client;
+module.exports = client;

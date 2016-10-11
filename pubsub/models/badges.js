@@ -5,7 +5,7 @@ var broadcast = require('../lib/broadcast');
 //
 // Save badges to database
 // @param {Array} badges
-// @param {callback} function
+// @param {Function} callback
 //
 //
 //
@@ -30,7 +30,7 @@ exports.trim = function() {
 //
 // Send out badges to the broadcaster
 // @param {Array} badges
-// @param {callback} function
+// @param {Function} callback
 //
 //
 //
@@ -41,9 +41,12 @@ exports.send = function(badges, callback) {
 
 //
 // Get badges from redis
-// @param {callback} function
+// @param {Function} callback
 //
 //
 exports.get = function(callback) {
-  redis.lrange('badges', 0, -1, callback);
+  redis.lrange('badges', 0, -1, function(err, data) {
+    if (err) return callback(err, data);
+    callback(null, data.map(JSON.parse)); // redis will return string
+  });
 }
